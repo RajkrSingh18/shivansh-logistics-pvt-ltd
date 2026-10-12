@@ -1,4 +1,12 @@
 {
+  "name": "shivansh-logistics-pvt-ltd",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace frontend"
+  },
   "dependencies": {
     "framer-motion": "^14.0.0"
   }
