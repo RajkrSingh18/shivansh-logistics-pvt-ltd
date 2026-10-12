@@ -1,0 +1,292 @@
+/* =====================================================
+   HEADER: intro, ticker, scroll-truck, glass navbar
+   ===================================================== */
+
+/* ---------- Mini truck (shared) ---------- */
+.mt-wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mtSpin 0.4s linear infinite;
+  animation-play-state: paused;
+}
+.mt-body {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+@keyframes mtSpin { to { transform: rotate(360deg); } }
+@keyframes mtBounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-1px); }
+}
+
+/* ---------- Intro splash ---------- */
+.intro {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.intro-half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50.2%;
+  background: #071d31;
+}
+.intro-top {
+  top: 0;
+  background: radial-gradient(ellipse at 50% 120%, #123a5c 0%, #071d31 70%);
+  animation: introUp 0.75s cubic-bezier(0.77, 0, 0.18, 1) 2.2s forwards;
+}
+.intro-bottom {
+  bottom: 0;
+  background: radial-gradient(ellipse at 50% -20%, #123a5c 0%, #071d31 70%);
+  animation: introDown 0.75s cubic-bezier(0.77, 0, 0.18, 1) 2.2s forwards;
+}
+
+.intro-center {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  display: flex;
+  width: min(90%, 640px);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  animation: introFade 0.4s ease 2.1s forwards;
+}
+
+.intro-mark {
+  display: grid;
+  width: 84px;
+  height: 84px;
+  place-items: center;
+  border-radius: 20px;
+  color: #10263f;
+  background: linear-gradient(145deg, #ffd78a, #f5a623);
+  box-shadow: 0 6px 0 #a9630d, 0 20px 40px rgba(0, 0, 0, 0.4);
+  font-family: "Manrope", sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  animation: introMark 0.8s cubic-bezier(0.2, 1.4, 0.3, 1) 0.1s both;
+}
+
+.intro-title {
+  margin: 26px 0 8px;
+  color: #fff;
+  font-size: clamp(28px, 6vw, 46px);
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  animation: introTitle 0.9s ease 0.5s both;
+}
+
+.intro-sub {
+  margin: 0;
+  color: #a9c3d6;
+  font-size: clamp(14px, 2.4vw, 18px);
+  animation: introSub 0.8s ease 1s both;
+}
+
+.intro-road {
+  position: absolute;
+  right: 0;
+  bottom: 22%;
+  left: 0;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, #5f7f97 0 14px, transparent 14px 26px);
+  transform-origin: left;
+  animation: introRoad 0.6s ease 0.1s both, introFade 0.4s ease 2.1s forwards;
+}
+
+.intro-truck {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: 150px;
+  animation: introDrive 2.1s cubic-bezier(0.45, 0.05, 0.5, 1) 0.2s both;
+}
+.intro-truck .mt-wheel { animation-play-state: running; }
+.intro-truck .mt-body { animation: mtBounce 0.18s ease-in-out infinite alternate; }
+
+@keyframes introMark {
+  from { opacity: 0; transform: scale(0.3) rotate(-16deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes introTitle {
+  from { opacity: 0; letter-spacing: 14px; }
+  to   { opacity: 1; letter-spacing: 1.5px; }
+}
+@keyframes introSub {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes introRoad {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes introDrive {
+  from { transform: translateX(-180px); }
+  to   { transform: translateX(calc(100vw + 40px)); }
+}
+@keyframes introFade { to { opacity: 0; } }
+@keyframes introUp   { to { transform: translateY(-101%); } }
+@keyframes introDown { to { transform: translateY(101%); } }
+
+/* ---------- Header base (higher specificity than polish.css) ---------- */
+.site-header.sh {
+  position: sticky;
+  top: -36px;
+  z-index: 40;
+  background: #fff;
+  transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.site-header.sh.is-scrolled {
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 10px 30px rgba(8, 21, 37, 0.1);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+}
+
+.sh .navbar {
+  position: relative;
+  z-index: 1;
+  transition: min-height 0.3s ease;
+}
+.sh.is-scrolled .navbar { min-height: 68px; }
+
+.sh .header-company-logo {
+  transition: width 0.3s ease, height 0.3s ease;
+}
+.sh.is-scrolled .header-company-logo {
+  width: 112px !important;
+  height: 60px !important;
+}
+
+/* ---------- Ticker in top bar ---------- */
+.sh .topbar-inner { gap: 24px; }
+
+.sh-ticker {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.sh-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: shTicker 30s linear infinite;
+}
+
+.sh-ticker-group { display: flex; flex-shrink: 0; }
+
+.sh-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 38px;
+  color: #dce6f1;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sh-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f5a623;
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.25);
+}
+
+.sh-topmail { flex-shrink: 0; font-size: 13px; }
+
+@keyframes shTicker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ---------- Scroll-progress road + truck ---------- */
+.sh-road {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, #cfd6df 0 10px, transparent 10px 18px);
+  pointer-events: none;
+}
+
+.sh-road-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: calc(var(--p, 0) * 100%);
+  background: linear-gradient(90deg, #f5a623, #ffd078);
+}
+
+.sh-truck {
+  position: absolute;
+  bottom: 3px;
+  left: calc(var(--p, 0) * (100% - 54px));
+  width: 54px;
+}
+
+.sh.is-moving .sh-truck .mt-wheel { animation-play-state: running; }
+.sh.is-moving .sh-truck .mt-body { animation: mtBounce 0.16s ease-in-out infinite alternate; }
+
+/* ---------- Get a Quote button: shimmer + pulse ---------- */
+.sh .nav-cta { position: relative; animation: shPulse 2.6s ease-out infinite; }
+
+.sh .nav-cta::before {
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  content: "";
+  transform: skewX(-20deg);
+  animation: shShimmer 3.2s ease-in-out 1s infinite;
+}
+
+@keyframes shShimmer {
+  0%   { left: -70%; }
+  45%, 100% { left: 130%; }
+}
+@keyframes shPulse {
+  0%   { box-shadow: 0 8px 20px rgba(245, 166, 35, 0.25), 0 0 0 0 rgba(245, 166, 35, 0.5); }
+  70%  { box-shadow: 0 8px 20px rgba(245, 166, 35, 0.25), 0 0 0 14px rgba(245, 166, 35, 0); }
+  100% { box-shadow: 0 8px 20px rgba(245, 166, 35, 0.25), 0 0 0 0 rgba(245, 166, 35, 0); }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 760px) {
+  .site-header.sh { top: 0; }
+  .sh-topmail { display: none; }
+  .sh .topbar-inner { justify-content: flex-start; }
+  .sh.is-scrolled .navbar { min-height: 64px; }
+  .sh.is-scrolled .header-company-logo {
+    width: 100px !important;
+    height: 52px !important;
+  }
+  .intro-truck { width: 110px; }
+  .intro-mark { width: 70px; height: 70px; font-size: 28px; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .intro { display: none; }
+  .sh-ticker-track,
+  .sh .nav-cta,
+  .sh .nav-cta::before,
+  .mt-wheel,
+  .mt-body { animation: none !important; }
+}

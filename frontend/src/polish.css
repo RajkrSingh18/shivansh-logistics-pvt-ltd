@@ -1,0 +1,117 @@
+/* =====================================================
+   DESIGN POLISH — readable sizes, sticky header, new sections
+   ===================================================== */
+
+/* Header: topbar scrolls away, navbar stays pinned */
+.site-header {
+  position: sticky;
+  top: -36px;
+  box-shadow: 0 1px 0 var(--border);
+}
+.topbar { font-size: 13px; }
+.nav-links > a:not(.button) { font-size: 15px; font-weight: 600; position: relative; }
+.nav-links > a:not(.button)::after {
+  position: absolute; left: 0; bottom: -6px; width: 0; height: 2px;
+  background: var(--orange); content: ""; transition: width 0.25s ease;
+}
+.nav-links > a:not(.button):hover::after { width: 100%; }
+.button { font-size: 15px; border-radius: 8px; min-height: 52px; }
+.nav-cta { min-height: 46px; }
+
+/* Eyebrows: sentence case, with a short bar instead of tracked caps */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 16px; color: #8a5300;
+  font-size: 15px; font-weight: 700; letter-spacing: 0; text-transform: none;
+}
+.eyebrow::before { width: 26px; height: 2px; background: var(--orange); content: ""; }
+.hero-eyebrow { color: #ffc45c; font-size: 15px; letter-spacing: 0; text-transform: none; }
+.hero-eyebrow::before { background: #ffc45c; }
+
+/* Hero */
+.hero h1 { letter-spacing: -1.5px; }
+.hero h1 span { color: #ffc45c; }
+.hero-description { max-width: 480px; font-size: 18px; line-height: 1.7; }
+.hero-note { font-size: 15px; }
+
+/* Trust strip */
+.trust-inner > div { font-size: 15px; font-weight: 600; }
+.trust-symbol { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #fff4de; color: #9a5b00; }
+
+/* Section text */
+.section h2 { letter-spacing: -1.2px; }
+.about-content > p { font-size: 17px; line-height: 1.75; }
+.about-points > div { font-size: 16px; font-weight: 600; }
+.check-icon { width: 26px; height: 26px; }
+.section-heading > p { font-size: 17px; line-height: 1.7; }
+.text-link { font-size: 15px; }
+
+/* Services */
+.service-card { min-height: 330px; border-radius: 12px; }
+.service-icon { width: 56px; height: 56px; border-radius: 12px; color: #9a5b00; }
+.service-tag { font-size: 14px; letter-spacing: 0; text-transform: none; color: #8a5300; font-weight: 600; }
+.service-card h3 { font-size: 21px; }
+.service-card p, .project-info p { font-size: 15.5px; line-height: 1.7; }
+.service-link { font-size: 15px; }
+
+/* How it works */
+.section-process { background: #fff; padding-bottom: 80px; }
+.process-list {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px; margin: 0; padding: 0; list-style: none; position: relative;
+}
+.process-list::before {
+  position: absolute; top: 24px; right: 6%; left: 60px;
+  border-top: 2px dashed #e3c78f; content: "";
+}
+.process-step { position: relative; min-width: 0; }
+.process-number {
+  position: relative; display: grid; width: 50px; height: 50px; place-items: center;
+  margin-bottom: 22px; border-radius: 50%; color: var(--navy); background: var(--orange);
+  box-shadow: 0 0 0 6px #fff;
+  font-family: "Manrope", sans-serif; font-size: 20px; font-weight: 800;
+}
+.process-step h3 { margin-bottom: 8px; color: var(--navy); font-size: 19px; }
+.process-step p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.7; }
+
+/* Project banner + projects */
+.project-banner h2 { font-size: clamp(28px, 3.5vw, 40px); }
+.project-card { border-radius: 12px; }
+.project-info h3 { font-size: 22px; }
+
+/* Contact */
+.contact-copy > p { font-size: 17px; line-height: 1.7; }
+.contact-detail small { font-size: 13px; letter-spacing: 0; text-transform: none; }
+.contact-detail a { font-size: 17px; font-weight: 600; }
+.contact-detail-icon { width: 50px; height: 50px; border-radius: 10px; }
+.contact-form { border-radius: 16px; }
+.contact-form h3 { font-size: 26px; }
+.contact-form label { font-size: 14px; font-weight: 700; }
+.contact-form input, .contact-form select, .contact-form textarea {
+  min-height: 50px; padding: 13px 14px; border-radius: 8px; font-size: 16px;
+}
+.form-note { font-size: 13px; }
+
+/* WhatsApp floating button */
+.whatsapp-fab {
+  position: fixed; z-index: 50; right: 20px; bottom: 20px;
+  display: grid; width: 58px; height: 58px; place-items: center;
+  border-radius: 50%; background: #25d366;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s ease;
+}
+.whatsapp-fab:hover { transform: scale(1.08); }
+
+@media (max-width: 1050px) {
+  .process-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .process-list::before { display: none; }
+}
+@media (max-width: 760px) {
+  .site-header { top: 0; }
+  .hero-description { font-size: 16px; }
+  .about-content > p, .section-heading > p, .contact-copy > p { font-size: 16px; }
+}
+@media (max-width: 480px) {
+  .process-list { grid-template-columns: 1fr; }
+  .whatsapp-fab { right: 14px; bottom: 14px; width: 54px; height: 54px; }
+}

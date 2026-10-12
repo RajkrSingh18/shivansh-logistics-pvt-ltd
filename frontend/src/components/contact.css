@@ -1,0 +1,432 @@
+/* =====================================================
+   CONTACT
+   ===================================================== */
+
+.section-contact.ct {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(44, 100, 150, 0.4), transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(245, 166, 35, 0.14), transparent 50%),
+    linear-gradient(180deg, #071524, #0a2238);
+}
+
+/* dot grid */
+.ct::before {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 90%);
+  mask-image: linear-gradient(180deg, #000, transparent 90%);
+  content: "";
+  pointer-events: none;
+}
+
+.ct-spot {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    480px circle at var(--mx, 25%) var(--my, 30%),
+    rgba(245, 166, 35, 0.12),
+    transparent 60%
+  );
+}
+
+/* ---------- Scroll reveal ---------- */
+.ct-r {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s);
+}
+.ct.in .ct-r {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Layout ---------- */
+.ct-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: start;
+  gap: clamp(40px, 6vw, 88px);
+}
+
+.ct-copy { min-width: 0; padding-top: 12px; }
+
+.ct .ct-title {
+  margin: 0 0 20px;
+  color: #fff;
+  font-size: clamp(34px, 4.4vw, 58px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+.ct .ct-title span { color: #ffc45c; }
+
+.ct .ct-lead {
+  max-width: 460px;
+  margin: 0 0 32px;
+  color: #bcd0e2;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* ---------- Contact cards ---------- */
+.ct-cards {
+  display: grid;
+  gap: 12px;
+  max-width: 460px;
+  margin-bottom: 34px;
+}
+
+.ct-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* keep the reveal transition and add hover transitions */
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s),
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.ct.in .ct-card:hover {
+  border-color: rgba(245, 166, 35, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(6px);
+  transition-delay: 0s;
+}
+
+.ct-card-icon {
+  display: grid;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border-radius: 14px;
+  color: #ffc45c;
+  background: rgba(245, 166, 35, 0.16);
+}
+.ct-card-icon.ct-wa { color: #4ee38a; background: rgba(37, 211, 102, 0.16); }
+
+.ct-card-text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+.ct-card-text small { color: #a9c3d6; font-size: 14px; }
+.ct-card-text strong {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- What happens next ---------- */
+.ct-next { max-width: 460px; }
+
+.ct .ct-next h3 {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.ct-next ol {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.ct-next li {
+  position: relative;
+  padding-left: 46px;
+  color: #d3e1ee;
+  font-size: 16px;
+  line-height: 30px;
+  counter-increment: step;
+}
+
+.ct-next li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  color: #10263f;
+  background: #f5a623;
+  content: counter(step);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.ct-next li:not(:last-child)::after {
+  position: absolute;
+  top: 34px;
+  bottom: -12px;
+  left: 14px;
+  border-left: 2px dashed rgba(255, 255, 255, 0.22);
+  content: "";
+}
+
+/* ---------- Form card ---------- */
+.ct-formwrap {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  color: var(--text);
+  background: #fff;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.4);
+}
+
+.ct-formwrap::before {
+  display: block;
+  height: 6px;
+  background: linear-gradient(90deg, #f5a623, #ffd078, #f5a623);
+  content: "";
+}
+
+.ct-form,
+.ct-done {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: clamp(24px, 4vw, 40px);
+}
+
+.ct-form .eyebrow { margin-bottom: -8px; }
+
+.ct-form h3 {
+  margin: 0 0 4px;
+  color: var(--navy);
+  font-size: clamp(24px, 2.6vw, 30px);
+  line-height: 1.3;
+}
+
+.ct-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ct-form label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+  color: #354458;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ct-form input[type="text"],
+.ct-form input[type="tel"],
+.ct-form input[type="email"],
+.ct-form textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  padding: 13px 15px;
+  border: 1.5px solid #dfe5ec;
+  border-radius: 12px;
+  outline: none;
+  color: var(--text);
+  background: #f9fbfd;
+  font-size: 16px;
+  font-weight: 400;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.ct-form textarea { min-height: 120px; resize: vertical; }
+
+.ct-form input::placeholder,
+.ct-form textarea::placeholder { color: #9aa5b2; }
+
+.ct-form input:focus,
+.ct-form textarea:focus {
+  border-color: #e0a02a;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.16);
+}
+
+/* ---------- Service chips ---------- */
+.ct-chips {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ct-chips legend {
+  margin-bottom: 10px;
+  padding: 0;
+  color: #354458;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ct-chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.ct-form .ct-chip {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  gap: 0;
+  cursor: pointer;
+}
+
+/* radio stays focusable but invisible */
+.ct-chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ct-chip span {
+  padding: 10px 16px;
+  border: 1.5px solid #dfe5ec;
+  border-radius: 99px;
+  color: #354458;
+  background: #f9fbfd;
+  font-size: 15px;
+  font-weight: 600;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.ct-chip:hover span { border-color: #efc272; }
+
+.ct-chip input:checked + span {
+  border-color: #f5a623;
+  color: #10263f;
+  background: #fff1d6;
+  transform: translateY(-1px);
+}
+
+.ct-chip input:focus-visible + span {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+/* ---------- Buttons ---------- */
+.ct-submit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.ct-submit .button { flex: 1 1 200px; min-height: 56px; font-size: 16px; }
+
+.ct-btn-wa {
+  color: #fff;
+  border: 0;
+  background: linear-gradient(135deg, #2bd46d, #14a850);
+  box-shadow: 0 10px 24px rgba(20, 168, 80, 0.3);
+}
+.ct-btn-wa:hover {
+  background: linear-gradient(135deg, #3be07b, #19b957);
+  box-shadow: 0 14px 30px rgba(20, 168, 80, 0.4);
+}
+
+.ct-btn-mail {
+  color: var(--navy);
+  border: 1.5px solid #cdd7e2;
+  background: #fff;
+}
+.ct-btn-mail:hover { border-color: var(--navy); background: #f4f7fb; }
+
+.ct .ct-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* ---------- Done state ---------- */
+.ct-done {
+  align-items: flex-start;
+  min-height: 430px;
+  justify-content: center;
+}
+
+.ct-done-icon {
+  display: grid;
+  width: 72px;
+  height: 72px;
+  place-items: center;
+  border-radius: 50%;
+  color: #10263f;
+  background: linear-gradient(145deg, #ffd78a, #f5a623);
+  box-shadow: 0 0 0 10px rgba(245, 166, 35, 0.16);
+  animation: ctPop 0.6s cubic-bezier(0.2, 1.4, 0.3, 1) both;
+}
+
+.ct-done h3 { margin: 6px 0 0; color: var(--navy); font-size: 28px; line-height: 1.3; }
+.ct .ct-done p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.7; }
+
+.ct-done-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 8px; }
+
+.ct-link {
+  padding: 0;
+  border: 0;
+  color: var(--navy);
+  background: none;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: #e0a02a;
+  text-underline-offset: 5px;
+}
+.ct-link:hover { color: #9a5b00; }
+
+@keyframes ctPop {
+  from { opacity: 0; transform: scale(0.3) rotate(-20deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .ct-grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .ct-cards, .ct-next, .ct .ct-lead { max-width: 560px; }
+}
+
+@media (max-width: 560px) {
+  .ct-row { grid-template-columns: minmax(0, 1fr); }
+  .ct-submit .button { flex-basis: 100%; }
+  .ct-card-text strong { font-size: 16px; }
+  .ct-done { min-height: 0; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ct-r { opacity: 1; transform: none; transition: none; }
+  .ct-done-icon { animation: none; }
+}

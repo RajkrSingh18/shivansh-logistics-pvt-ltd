@@ -1,0 +1,245 @@
+/* =====================================================
+   PROJECT BANNER
+   ===================================================== */
+
+/* .project-banner.pb is more specific than the old .project-banner rules */
+.project-banner.pb {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 110px 0;
+  color: #fff;
+  background:
+    radial-gradient(ellipse at 85% 20%, rgba(245, 166, 35, 0.16), transparent 50%),
+    linear-gradient(115deg, #071524 0%, #0d2a45 55%, #123a5c 100%);
+}
+
+/* hide the old decorative circles from App.css */
+.project-banner.pb::before,
+.project-banner.pb::after {
+  display: none;
+}
+
+.pb-spot {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    480px circle at var(--mx, 70%) var(--my, 40%),
+    rgba(245, 166, 35, 0.15),
+    transparent 60%
+  );
+}
+
+/* ---------- Ghost text ---------- */
+.pb-ghost {
+  position: absolute;
+  z-index: -2;
+  right: 0;
+  bottom: -0.12em;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 40%);
+  mask-image: linear-gradient(180deg, transparent, #000 40%);
+}
+
+.pb-ghost-track {
+  display: flex;
+  width: max-content;
+  animation: pbDrift 70s linear infinite;
+}
+
+.pb-ghost-track span {
+  flex-shrink: 0;
+  padding-right: 0.3em;
+  color: transparent;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(90px, 14vw, 200px);
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.09);
+}
+
+@keyframes pbDrift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ---------- Route ---------- */
+.pb-route {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: opacity 1.4s ease 0.3s;
+  pointer-events: none;
+}
+.pb.in .pb-route { opacity: 0.9; }
+
+.pb-path {
+  fill: none;
+  stroke: rgba(255, 200, 110, 0.4);
+  stroke-width: 2;
+  stroke-dasharray: 4 9;
+  animation: pbDash 2.4s linear infinite;
+}
+
+@keyframes pbDash { to { stroke-dashoffset: -26; } }
+
+.pb-node { fill: #ffd078; }
+
+.pb-node-ring {
+  fill: none;
+  stroke: #ffd078;
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pbRing 2.8s ease-out var(--rd) infinite;
+}
+
+@keyframes pbRing {
+  from { transform: scale(0.4); opacity: 0.9; }
+  to   { transform: scale(1.8); opacity: 0; }
+}
+
+.pb-pin-halo {
+  fill: rgba(245, 166, 35, 0.22);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pbHalo 2.4s ease-in-out infinite;
+}
+
+@keyframes pbHalo {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%      { transform: scale(1.5); opacity: 0.3; }
+}
+
+/* ---------- Content ---------- */
+.pb-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.pb-copy { min-width: 0; max-width: 760px; }
+
+.pb-eyebrow {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.pb.in .pb-eyebrow { opacity: 1; transform: none; }
+
+.project-banner.pb h2.pb-title {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(34px, 5vw, 66px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.8px;
+  text-shadow: 0 6px 28px rgba(0, 0, 0, 0.3);
+}
+
+.pb-line { display: block; }
+
+.pb-w {
+  display: inline-block;
+  margin-bottom: -0.12em;
+  padding-bottom: 0.12em;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.pb-w > span {
+  display: inline-block;
+  transform: translateY(112%);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) calc(0.1s + var(--i) * 0.08s);
+}
+.pb.in .pb-w > span { transform: translateY(0); }
+
+.pb-grad .pb-w > span {
+  background: linear-gradient(100deg, #ffb938 0%, #ffe2a0 40%, #f5a623 60%, #ffcf70 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pb.in .pb-grad .pb-w > span {
+  animation: pbShine 5s linear 1.4s infinite;
+}
+
+@keyframes pbShine {
+  from { background-position: 0% 0; }
+  to   { background-position: -250% 0; }
+}
+
+/* ---------- Actions ---------- */
+.pb-actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 1s, transform 0.8s ease 1s;
+}
+.pb.in .pb-actions { opacity: 1; transform: none; }
+
+.pb-cta {
+  min-height: 60px;
+  padding-inline: 30px;
+  font-size: 17px;
+  animation: shPulse 2.6s ease-out 2s infinite;
+}
+
+.pb-call {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 4px;
+}
+.pb-call small { color: #a9c3d6; font-size: 14px; }
+.pb-call strong {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+.pb-call:hover strong { color: #ffd078; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .project-banner.pb { padding: 80px 0; }
+  .pb-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .pb-route { opacity: 0.35 !important; }
+  .project-banner.pb h2.pb-title { letter-spacing: -1px; }
+}
+
+@media (max-width: 480px) {
+  .pb-actions { width: 100%; }
+  .pb-cta { width: 100%; justify-content: center; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .pb-eyebrow,
+  .pb-actions,
+  .pb-route { opacity: 1; transform: none; transition: none; }
+  .pb-route { transform: translateY(-50%); opacity: 0.6; }
+  .pb-w > span { transform: none; transition: none; }
+  .pb-ghost-track, .pb-path, .pb-node-ring, .pb-pin-halo, .pb-cta,
+  .pb-grad .pb-w > span { animation: none !important; }
+}

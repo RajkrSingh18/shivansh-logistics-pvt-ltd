@@ -1,0 +1,269 @@
+.site-footer {
+  position: relative;
+  color: #e8f1f8;
+  background: linear-gradient(180deg, #071d31 0%, #0b3b5e 100%);
+}
+
+.sf-main {
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr 1fr 1.2fr;
+  gap: 40px;
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+
+.sf-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.sf-mark {
+  display: grid;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border-radius: 12px;
+  color: #10263f;
+  background: linear-gradient(145deg, #ffd78a, #f5a623);
+  box-shadow: 0 4px 0 #a9630d;
+  font-family: "Manrope", sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.sf-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sf-brand-text strong {
+  color: #fff;
+  font-family: "Manrope", sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  line-height: 1;
+}
+
+.sf-brand-text small {
+  color: #bcd6e8;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
+.sf-about {
+  max-width: 360px;
+}
+
+.sf-about p,
+.sf-contact p {
+  margin: 0 0 16px;
+  color: #cfe2ef;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.sf-email {
+  color: #ffd078;
+  font-size: 15px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.sf-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.sf-col h3 {
+  position: relative;
+  margin: 4px 0 8px;
+  padding-bottom: 12px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.sf-col h3::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 36px;
+  height: 3px;
+  border-radius: 3px;
+  background: #f5a623;
+  content: "";
+}
+
+.sf-col > a {
+  color: #cfe2ef;
+  font-size: 15px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.sf-col > a:hover {
+  color: #ffd078;
+  transform: translateX(4px);
+}
+
+.sf-phone {
+  color: #fff !important;
+  font-size: 18px !important;
+  font-weight: 700;
+}
+
+.sf-quote {
+  margin-top: 6px;
+  padding: 11px 20px;
+  border-radius: 6px;
+  color: #10263f !important;
+  background: linear-gradient(135deg, #ffd078, #f5a623);
+  font-weight: 700;
+}
+
+.sf-col > .sf-quote:hover {
+  transform: translateY(-2px);
+  color: #10263f;
+}
+
+/* ---------- Scene ---------- */
+.sf-scene {
+  position: relative;
+  height: clamp(160px, 17vw, 250px);
+  overflow: hidden;
+  background: #0b3b5e;
+}
+
+.sf-scene svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lit {
+  fill: #ffd98a;
+  opacity: 0.85;
+}
+
+/* ---------- Motion: everything moves right to left, truck stays in place ---------- */
+.sf-scroll {
+  animation-name: sfScroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+/* Far things move slowly, near things faster (parallax depth) */
+.sf-scroll-clouds { animation-duration: 160s; }
+.sf-scroll-far    { animation-duration: 130s; }
+.sf-scroll-near   { animation-duration: 55s; }
+.sf-scroll-road   { animation-duration: 12s; }
+
+@keyframes sfScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-1440px); }
+}
+
+/* Road dashes: 110 units per 0.9s, same speed as the roadside (1440 units per 12s) */
+.sf-dashes { animation: sfDashes 0.9s linear infinite; }
+
+@keyframes sfDashes {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 110; }
+}
+
+/* Distant plane */
+.sf-plane {
+  fill: #e9eff5;
+  opacity: 0.85;
+  transform: translate(1180px, 44px);
+  animation: sfPlane 90s linear -30s infinite;
+}
+
+@keyframes sfPlane {
+  from { transform: translate(-120px, 50px); }
+  to   { transform: translate(1560px, 26px); }
+}
+
+.sf-blink { animation: sfBlink 1.6s steps(1) infinite; }
+
+@keyframes sfBlink {
+  0%, 60% { opacity: 1; }
+  61%, 100% { opacity: 0; }
+}
+
+/* Wheels */
+.sf-wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sfSpin 0.45s linear infinite;
+}
+
+@keyframes sfSpin { to { transform: rotate(360deg); } }
+
+/* Small suspension movement on the truck body */
+.sf-truck-body {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: sfBounce 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes sfBounce {
+  from { transform: translateY(0) rotate(0deg); }
+  to   { transform: translateY(-0.7px) rotate(-0.12deg); }
+}
+
+/* Exhaust smoke: rises and drifts backwards (to the left) */
+.sf-smoke {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sfSmoke 3.6s ease-out infinite;
+  opacity: 0;
+}
+
+@keyframes sfSmoke {
+  0%   { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  15%  { opacity: 0.4; }
+  100% { transform: translate(-46px, -26px) scale(2.6); opacity: 0; }
+}
+
+/* ---------- Bottom bar ---------- */
+.sf-bottom {
+  background: #06283d;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sf-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  padding-block: 10px;
+}
+
+.sf-bottom p { margin: 0; color: #9db8cb; font-size: 13px; }
+.sf-bottom a { color: #cfe2ef; font-size: 13px; }
+.sf-bottom a:hover { color: #ffd078; }
+
+@media (max-width: 1000px) {
+  .sf-main { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 30px; padding-top: 48px; }
+  .sf-about { grid-column: 1 / -1; max-width: 480px; }
+}
+
+@media (max-width: 560px) {
+  .sf-main { grid-template-columns: 1fr 1fr; gap: 30px 18px; }
+  .sf-contact { grid-column: 1 / -1; }
+  .sf-bottom-inner { flex-direction: column; align-items: flex-start; gap: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-scroll, .sf-plane, .sf-blink, .sf-wheel, .sf-dashes,
+  .sf-truck-body, .sf-smoke { animation: none !important; }
+}
