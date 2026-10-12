@@ -1,3 +1,5 @@
+import heroVideo from "../assets/logistics-hero.mp4";
+
 const I = (d) => (
   <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{d}</svg>
 );
@@ -32,6 +34,17 @@ const projects = [
 export default function Home() {
   return (
     <main>
+      <section className="hero hero-video" id="home">
+        <video className="hero-video-media" autoPlay muted loop playsInline aria-hidden="true"><source src={heroVideo} type="video/mp4" /></video>
+        <div className="hero-overlay" />
+        <div className="hero-content">
+          <span className="hero-eyebrow">SHIVANSH LOGISTICS</span>
+          <h1>Moving your business forward</h1>
+          <p className="hero-description">Reliable transportation, warehousing and project logistics support for businesses across India.</p>
+          <div className="hero-actions"><a className="button button-primary" href="#contact">Request a quote <span>↗</span></a><a className="button button-outline" href="#services">Explore services <span>↓</span></a></div>
+          <p className="hero-note">Your cargo. Your schedule. Coordinated with care.</p>
+        </div>
+      </section>
       <section className="trust-strip" aria-label="Our approach">
         <div className="container trust-inner">
           <div><span className="trust-symbol">◆</span><span>Reliable freight coordination</span></div>
